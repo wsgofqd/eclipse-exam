@@ -1,7 +1,7 @@
 package cn.qdsoft.exam;
 
 /**
- * @author wsg
+ * @author wsg  20161017
  */
 import java.io.Reader;
 
