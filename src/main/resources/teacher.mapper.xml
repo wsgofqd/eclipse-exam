@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.qdsoft.exam.dao.TeacherDAO">
+	<!-- 代表一条sql语句中的一部分【片段】，不需要是完整的sql -->
+	<sql id="select">select id,name,email,password,phone,duty,status,age from
+		teachers
+	</sql>
+
+	<select id="findById" resultType="Teacher">
+		<include refid="select" />
+		where id=#{id}
+	</select>
+	<!-- dao.findByEmail("admin@qdsoft.com") -->
+	<select id="findByEmail" resultType="Teacher">
+		<include refid="select" />
+		where email=#{email}
+	</select>
+	<select id="findAll" resultType="Teacher">
+		<include refid="select" />
+	</select>
+	<!-- dao.save(t) -->
+	<insert id="save" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="id">
+		insert into teachers(name,email,password,phone,duty,age,status)
+		<!-- #{name}: t.getName() ,属性不存在则使用field（不推荐） -->
+		values(#{name},#{email},#{password},#{phone},#{duty},#{age},#{status})
+	</insert>
+
+	<update id="update">
+		update teachers set
+		name=#{name},email=#{email},phone=#{phone},
+		duty=#{duty},age=#{age},status=#{status}
+		where id=#{id}
+	</update>
+	<update id="updatePassword">
+		update teachers set password=#{password} where id=#{id}
+	</update>
+</mapper>

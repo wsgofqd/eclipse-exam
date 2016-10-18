@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.qdsoft.exam.dao.ItemDAO">
+	<select id="findById" resultType="item">
+		select id,title,correct,qid
+		from items where id=#{id}
+	</select>
+	<select id="findByQuestionId" resultType="item">
+		select
+		id,title,correct,qid
+		from items where qid=#{qid}
+	</select>
+ <insert id="save" useGeneratedKeys="true" keyColumn="id"
+        keyProperty="id">
+        insert into items(title,correct,qid)
+        <!-- #{name}: t.getName() ,属性不存在则使用field（不推荐） -->
+        values(#{title},#{correct},#{question.id})
+    </insert>
+</mapper>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 将mybatis的执行过程显示在控制台 -->
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+		<!-- 在用到级联属性的时候才会查询 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!--true： 把所有级联查询都执行 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!-- 将下划线格式转换为驼峰格式： table：user_name java: userName -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="autoMappingBehavior" value="FULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias alias="Teacher" type="cn.qdsoft.exam.model.Teacher" />
+		<typeAlias alias="Question" type="cn.qdsoft.exam.model.Question" />
+		<typeAlias alias="Subject" type="cn.qdsoft.exam.model.Subject" />
+		<package name="cn.qdsoft.exam.model" />
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url"
+					value="jdbc:mysql://localhost:3306/exam?useUnicode=true&amp;characterEncoding=utf8" />
+				<property name="username" value="root" />
+				<property name="password" value="" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="teacher.mapper.xml" />
+		<mapper resource="question.mapper.xml" />
+		<mapper resource="subject.mapper.xml" />
+		<mapper resource="item.mapper.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.qdsoft.exam.dao.QuestionDAO">
+	<select id="findById" resultMap="QuestionMap" >
+		select
+		id,title,type,status,subid,tid from questions where id=#{id}
+	</select>
+    
+	<select id="findAll" resultMap="QuestionMap" >
+		select
+		id,title,type,status,subid,tid from questions 
+	</select>
+    
+   <insert id="save" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="id">
+		insert into questions(title,type,subid,tid,status)
+		<!-- #{name}: t.getName() ,属性不存在则使用field（不推荐） -->
+		values(#{title},#{type},#{subject.id},#{teacher.id},#{status})
+	</insert>
+<!-- lazy 查询 -->
+
+	
+    
+    
+    <resultMap type="Question" id="QuestionMap" >
+    
+		<!-- orm: 对一查询 -->
+		<association property="subject" column="subid"  
+			select="cn.qdsoft.exam.dao.SubjectDAO.findById"  />
+		<association property="teacher" column="tid"
+			select="cn.qdsoft.exam.dao.TeacherDAO.findById" />
+			<!-- 对多 -->
+		<collection property="items" javaType="ArrayList" ofType="item"
+		 select="cn.qdsoft.exam.dao.ItemDAO.findByQuestionId" column="id"
+		/>
+	</resultMap>
+    
+</mapper>
