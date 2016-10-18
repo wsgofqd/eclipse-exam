@@ -1,5 +1,8 @@
 package cn.qdsoft.exam;
 
+/**
+ * @author wsg
+ */
 import java.io.Reader;
 
 import org.apache.ibatis.io.Resources;
